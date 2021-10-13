@@ -67,6 +67,10 @@ public class Matrix {
         return row;
     }
 
+    public int[] getThisRow(int i){
+        return this.matrix[i];
+    }
+
     public int[] getColumn (int j) {
         int[] column = new int[rowCount];
         for (int i = 0; i < rowCount ; i++) {
