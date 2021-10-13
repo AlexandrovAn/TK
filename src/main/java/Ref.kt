@@ -1,7 +1,7 @@
 import utils.*
 
 fun Matrix.ref(): Matrix {
-    var result = Matrix(this)
+    val result = Matrix(this)
     var row = 0
 
     (0 until colCount).forEach { i ->
@@ -9,7 +9,7 @@ fun Matrix.ref(): Matrix {
         val index = result.findColumnIndexUnderPosition(i, row)
         if (index >= row) {
             if (index != row) result.swapRows(row, index)
-            result.deleteOnes(i, row)
+            result.refDeleteOnes(i, row)
             row++
         }
     }
@@ -27,7 +27,7 @@ fun Matrix.findColumnIndexUnderPosition(columnIndex: Int, row: Int): Int {
     }
 }
 
-fun Matrix.deleteOnes(i: Int, index: Int) =
+fun Matrix.refDeleteOnes(i: Int, index: Int) =
     columnFilter(
         column = i,
         underRowIndex = index
