@@ -9,3 +9,5 @@ fun List<List<Int>>.leadColumnsIndex(): List<Int> = map { row -> row.indexOfFirs
 
 fun List<List<Int>>.filterLeadColumns(lead: List<Int>) =
     map { row -> row.filterIndexed { index, _ -> !lead.contains(index) } }
+
+fun List<List<Int>>.toMatrix(): Matrix = toArrays().toMatrix()
