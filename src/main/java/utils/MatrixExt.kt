@@ -35,7 +35,7 @@ fun Matrix.rowZeroFilter(): Matrix {
 fun Matrix.deleteRow(row: Int): Matrix {
     val result = Matrix(rowCount - 1, colCount)
     var resultIndex = 0
-    (0 until rowCount - 1).forEach { i ->
+    (0 until rowCount).forEach { i ->
         if (i != row) {
             result.setRow(resultIndex, getRow(i))
             ++resultIndex
@@ -46,3 +46,13 @@ fun Matrix.deleteRow(row: Int): Matrix {
 
 fun Matrix.to2DList() = (0 until rowCount).map { getThisRow(it).toList() }
 
+infix fun Matrix.multiply(other : Matrix) : Matrix {
+    val resultMatrix = Matrix(rowCount, other.colCount)
+    (0 until resultMatrix.rowCount).forEach { row ->
+        val multiplyResult = getRow(row) multiply other
+        resultMatrix.setRow(row,multiplyResult)
+    }
+    return resultMatrix
+}
+
+fun Matrix.sum() = to2DList().reduce { acc, list -> acc + list.sum() }.sum()
