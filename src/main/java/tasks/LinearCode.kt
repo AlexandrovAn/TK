@@ -5,7 +5,7 @@ import rref
 import utils.*
 
 class LinearCode(matrix: Matrix) {
-    private val result: Matrix
+    val result: Matrix
 
     private val n: Int
     private val k: Int
