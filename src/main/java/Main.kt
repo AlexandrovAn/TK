@@ -6,29 +6,42 @@ import utils.*
 
 fun main() {
 
-    println("*********1.1********")
-    println(MatrixDictionary.refTestMatrix.toString())
-    println(MatrixDictionary.refTestMatrix.ref().toString())
+//    println("*********1.1********")
+//    println(MatrixDictionary.refTestMatrix.toString())
+//    println(MatrixDictionary.refTestMatrix.ref().toString())
+//
+//    println("*********1.2********")
+//    println(MatrixDictionary.rrefTestMatrix.toString())
+//    println(MatrixDictionary.rrefTestMatrix.rref().toString())
+//
+//    println("*********1.3********")
+//    println(MatrixDictionary.linearCodeMatrix.toString())
+//    println(LinearCode(MatrixDictionary.linearCodeMatrix).toString())
+//
+//    println("*********1.4********")
+//    val firstCalculate = first(MatrixDictionary.codeWordsMatrix)
+//    val secondCalculate = second(MatrixDictionary.codeWordsMatrix)
+//    println(firstCalculate)
+//    println(secondCalculate)
+//
+//    println("Равенство первого результата второму: ${firstCalculate equalAsMultiplicity  secondCalculate}")
+//    println("Умножение для первого метода дает нулевые вектора: ${(firstCalculate multiply MatrixDictionary.arrayH).sum() == 0}")
+//    println("Умножение для второго метода дает нулевые вектора: ${(secondCalculate multiply MatrixDictionary.arrayH).sum() == 0}")
 
-    println("*********1.2********")
-    println(MatrixDictionary.rrefTestMatrix.toString())
-    println(MatrixDictionary.rrefTestMatrix.rref().toString())
-
-    println("*********1.3********")
-    println(MatrixDictionary.linearCodeMatrix.toString())
-    println(LinearCode(MatrixDictionary.linearCodeMatrix).toString())
-
-    println("*********1.4********")
-    val firstCalculate = first(MatrixDictionary.codeWordsMatrix)
-    val secondCalculate = second(MatrixDictionary.codeWordsMatrix)
-    println(firstCalculate)
-    println(secondCalculate)
-
-    println("Равенство первого результата второму: ${firstCalculate equalAsMultiplicity  secondCalculate}")
-    println("Умножение для первого метода дает нулевые вектора: ${(firstCalculate multiply MatrixDictionary.arrayH).sum() == 0}")
-    println("Умножение для второго метода дает нулевые вектора: ${(secondCalculate multiply MatrixDictionary.arrayH).sum() == 0}")
-
-
+    println("*********1.5********")
+    val verificationMatrix = LinearCode(MatrixDictionary.linearCodeMatrix).result
+    val resultOfPreviousTask = first(MatrixDictionary.linearCodeMatrix)
+    println(verificationMatrix)
+    println(resultOfPreviousTask)
+    val d = resultOfPreviousTask.codeDistance()
+    val t = d - 1
+    println("d = $d t = $t")
+    val error1 = resultOfPreviousTask.generateError(4)
+    val error2 = intArrayOf(0,0,0,0,1,0,0,1,0,0)
+    println("Ошибка: ${error1.toList()}")
+    resultOfPreviousTask.addError(error1)
+    println("Матрица с внедренной ошибкой:\n$resultOfPreviousTask")
+    resultOfPreviousTask.verifyErroredMatrix(verificationMatrix)
 }
 
 object MatrixDictionary {
