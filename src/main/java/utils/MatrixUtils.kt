@@ -12,7 +12,7 @@ fun identityMatrix(size: Int): List<List<Int>> {
     return matrix.to2DList()
 }
 
-infix fun Matrix.equalAsMultiplicity(other : Matrix) : Boolean {
+infix fun Matrix.equalAsMultiplicity(other: Matrix): Boolean {
     val firstSet = to2DList()
     val secondSet = other.to2DList()
     return firstSet.containsAll(secondSet) && secondSet.containsAll(firstSet)

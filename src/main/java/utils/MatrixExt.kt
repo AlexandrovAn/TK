@@ -86,3 +86,20 @@ fun Matrix.verifyErroredMatrix(verificationMatrix: Matrix) {
     }
 }
 
+fun Matrix.findSameRow(row: IntArray): Int {
+    to2DList().forEachIndexed { index, currRow ->
+        if (row.toList() == currRow) return index
+    }
+    return -1
+}
+
+fun Matrix.generateAllXorCombinations(): Array<Array<IntArray>> {
+    val result = Array<Array<IntArray>>(rowCount) { Array<IntArray>(rowCount) { IntArray(colCount) { 0 } } }
+    (0 until rowCount).forEach { i ->
+        (0 until rowCount).forEach { j ->
+            result[i][j] = getRow(i) xorPlus getRow(j)
+        }
+    }
+    return result
+}
+

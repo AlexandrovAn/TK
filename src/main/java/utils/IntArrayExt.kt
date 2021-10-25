@@ -21,3 +21,7 @@ infix fun IntArray.multiply(other: IntArray) = mapIndexed { index, item -> item 
 
 fun IntArray.xorSum() = reduce { acc, i -> acc xor i }
 
+fun IntArray.correctError(errorIndex: Int) {
+    this[errorIndex] = if (this[errorIndex] == 0) 1 else 0
+}
+
