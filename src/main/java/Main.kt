@@ -43,10 +43,10 @@ fun main() {
 //    resultOfPreviousTask.verifyErroredMatrix(verificationMatrix)
 
     println("*********ЛР 2 Часть 1********")
-//    firstPhase(MatrixDictionary.arrayG1)
-//    secondPhase(MatrixDictionary.arrayG1)
-//    firstPhase(MatrixDictionary.arrayG2)
-//    secondPhase(MatrixDictionary.arrayG2)
+    firstPhase(MatrixDictionary.arrayG1)
+    secondPhase(MatrixDictionary.arrayG1)
+    firstPhase(MatrixDictionary.arrayG2)
+    secondPhase(MatrixDictionary.arrayG2)
     thirdPhase(MatrixDictionary.arrayG2)
 
 }

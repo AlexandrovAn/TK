@@ -8,8 +8,8 @@ fun Array<Array<IntArray>>.findSameRow(row: IntArray): ArrayList<Pair<Int, Int>>
     return result
 }
 
-fun Array<Array<IntArray>>.to3DList() = (0 until size).map { this[it].to2DList() }
+fun Array<Array<IntArray>>.to3DList() = (0 until size).map { this[it].toListOfList() }
 
-fun Array<IntArray>.to2DList() = (0 until size).map { this[it].toList() }
+fun Array<IntArray>.toListOfList() = (0 until size).map { this[it].toList() }
 
 fun Array<Array<IntArray>>.print(): Unit = to3DList().forEach { println(it) }
