@@ -1,13 +1,13 @@
 import utils.*
 
-fun Matrix.rref(): Matrix {
-    val result = Matrix(this).ref().rowZeroFilter()
-    (0 until result.rowCount).forEach { i ->
-        val row = result.getRow(i)
-        val pivotIndex = row.pivotIndex()
-        result.deleteOnesAbovePivot(pivotIndex, i)
+fun Matrix.rref() = ref()
+    .rowZeroFilter()
+    .processRref()
+
+fun Matrix.processRref() = Matrix(this).also { result ->
+    (0 until result.rowCount).forEach { index ->
+        result.deleteOnesAbovePivot(result.getRow(index).pivotIndex(), index)
     }
-    return result
 }
 
 fun Matrix.deleteOnesAbovePivot(i: Int, index: Int) {

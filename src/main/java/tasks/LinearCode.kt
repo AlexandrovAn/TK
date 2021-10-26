@@ -11,24 +11,19 @@ class LinearCode(matrix: Matrix) {
     private val k: Int
 
     init {
-        val newMatrix = matrix.rref().apply {
-            n = colCount
-            k = rowCount
-        }.to2DList()
-        result = newMatrix.linearCodeFunction(n-k)
+        val newMatrix = matrix.rref()
+        n = newMatrix.colCount
+        k = newMatrix.rowCount
+        result = newMatrix.toListOfList().createVerifyMatrix(n - k)
     }
 
-    override fun toString(): String {
-        return result.toString()
-    }
+    override fun toString() = result.toString()
 }
 
-fun List<List<Int>>.linearCodeFunction(sizeOfIdentityMatrix: Int): Matrix {
+fun List<List<Int>>.createVerifyMatrix(sizeOfIdentityMatrix: Int): Matrix {
     val leadColumns = leadColumnsIndex()
-    val matrixX = filterLeadColumns(leadColumns)
+    val matrixX = filterColumns(leadColumns)
     val matrixI = identityMatrix(sizeOfIdentityMatrix).toMutableList()
-    leadColumns.forEachIndexed { index, i ->
-        matrixI.add(i, matrixX[index].toList())
-    }
+    leadColumns.forEachIndexed { index, i -> matrixI.add(i, matrixX[index].toList()) }
     return matrixI.toArrays().toMatrix()
 }

@@ -16,36 +16,28 @@ fun Matrix.columnFilter(
     column: Int,
     underRowIndex: Int = -1,
     aboveRowIndex: Int = rowCount
-) = this.getColumn(column).toList()
+) = getColumn(column).toList()
     .mapIndexedNotNull { index, item ->
-        when (item) {
-            1 -> index
-            else -> null
-        }
+        if (item == 1) index else null
     }.filter { it in (underRowIndex + 1) until aboveRowIndex }
 
 fun Matrix.rowZeroFilter(): Matrix {
     var result = Matrix(this)
-    (0 until rowCount).forEach { row ->
-        if (this.getRow(row).all { it == 0 })
-            result = result.deleteRow(row)
-    }
+    (0 until rowCount).forEach { row -> if (getRow(row).all { it == 0 }) result = result.deleteRow(row) }
     return result
 }
 
-fun Matrix.deleteRow(row: Int): Matrix {
-    val result = Matrix(rowCount - 1, colCount)
+fun Matrix.deleteRow(row: Int) = Matrix(rowCount - 1, colCount).also { result ->
     var resultIndex = 0
     (0 until rowCount).forEach { i ->
-        if (i != row) {
-            result.setRow(resultIndex, getRow(i))
-            ++resultIndex
-        }
+        if (i == row) return@forEach
+        result.setRow(resultIndex, getRow(i))
+        ++resultIndex
     }
-    return result
 }
 
-fun Matrix.to2DList() = (0 until rowCount).map { getThisRow(it).toList() }
+
+fun Matrix.toListOfList() = (0 until rowCount).map { getThisRow(it).toList() }
 
 infix fun Matrix.multiply(other: Matrix): Matrix {
     val resultMatrix = Matrix(rowCount, other.colCount)
@@ -56,9 +48,9 @@ infix fun Matrix.multiply(other: Matrix): Matrix {
     return resultMatrix
 }
 
-fun Matrix.sum() = to2DList().reduce { acc, list -> acc + list.sum() }.sum()
+fun Matrix.sum() = toListOfList().reduce { acc, list -> acc + list.sum() }.sum()
 
-fun Matrix.codeDistance() = to2DList().map { it.sum() }.minOrNull() ?: -1
+fun Matrix.codeDistance() = toListOfList().map { it.sum() }.minOrNull() ?: -1
 
 fun Matrix.generateError(t: Int): IntArray {
     val error = IntArray(colCount)
@@ -84,5 +76,22 @@ fun Matrix.verifyErroredMatrix(verificationMatrix: Matrix) {
     (0 until rowCount).forEach { row ->
         println("строка ${row + 1} * H = ${(getRow(row) multiply verificationMatrix).toList()}")
     }
+}
+
+fun Matrix.findSameRow(row: IntArray): Int {
+    toListOfList().forEachIndexed { index, currRow ->
+        if (row.toList() == currRow) return index
+    }
+    return -1
+}
+
+fun Matrix.generateAllXorCombinations(): Array<Array<IntArray>> {
+    val result = Array<Array<IntArray>>(rowCount) { Array<IntArray>(rowCount) { IntArray(colCount) { 0 } } }
+    (0 until rowCount).forEach { i ->
+        (0 until rowCount).forEach { j ->
+            result[i][j] = getRow(i) xorPlus getRow(j)
+        }
+    }
+    return result
 }
 

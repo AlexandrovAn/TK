@@ -9,11 +9,11 @@ fun identityMatrix(size: Int): List<List<Int>> {
         intArray[i] = 1
         matrix.setRow(i, intArray)
     }
-    return matrix.to2DList()
+    return matrix.toListOfList()
 }
 
-infix fun Matrix.equalAsMultiplicity(other : Matrix) : Boolean {
-    val firstSet = to2DList()
-    val secondSet = other.to2DList()
+infix fun Matrix.equalAsMultiplicity(other: Matrix): Boolean {
+    val firstSet = toListOfList()
+    val secondSet = other.toListOfList()
     return firstSet.containsAll(secondSet) && secondSet.containsAll(firstSet)
 }

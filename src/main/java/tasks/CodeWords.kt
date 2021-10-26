@@ -6,7 +6,7 @@ import kotlin.math.pow
 
 fun first(matrix: Matrix): Matrix {
 
-    val resultMatrix = matrix.to2DList().toMutableList()
+    val resultMatrix = matrix.toListOfList().toMutableList()
 
     (resultMatrix.indices).forEach { i ->
         (i until resultMatrix.size).forEach { j ->
