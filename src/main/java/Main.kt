@@ -1,4 +1,6 @@
 import tasks.LinearCode
+import tasks.allCombinations
+import tasks.second
 import utils.*
 
 fun main() {
@@ -41,40 +43,83 @@ fun main() {
 //    resultOfPreviousTask.verifyErroredMatrix(verificationMatrix)
 
     println("*********ЛР 2 Часть 1********")
+//    firstPhase(MatrixDictionary.arrayG1)
+//    secondPhase(MatrixDictionary.arrayG1)
+//    firstPhase(MatrixDictionary.arrayG2)
+//    secondPhase(MatrixDictionary.arrayG2)
+    thirdPhase(MatrixDictionary.arrayG2)
+
+}
+
+fun firstPhase(G: Matrix) {
     println("*********2.1********")
-    val G = MatrixDictionary.arrayG
     println(G)
     println("*********2.2/2.3********")
-    val verifyMatrix = LinearCode(MatrixDictionary.arrayG)
+    val verifyMatrix = LinearCode(G)
     println(verifyMatrix)
     println("*********2.4********")
-    val error1 = MatrixDictionary.arrayG.generateError(1)
+    val error1 = G.generateError(1)
     println("сформированная ошибка х1")
     println(error1.toList())
     println("внедряем ошибку")
-    var testRow = G.getRow(0) xorPlus error1
+    val testRow = G.getRow(0) xorPlus error1
     println(testRow.toList())
     println("вычисляем синдром")
-    var syndrome = testRow multiply verifyMatrix.result
+    val syndrome = testRow multiply verifyMatrix.result
     println(syndrome.toList())
     println("находим где ошибка")
-    println(verifyMatrix.result.findSameRow(syndrome) + 1)
+    println(verifyMatrix.result.findSameRow(syndrome))
     println("исправляем ошибку")
     testRow.correctError(verifyMatrix.result.findSameRow(syndrome))
     println(testRow.toList())
-    val error2 = MatrixDictionary.arrayG.generateError(2)
+}
+
+fun secondPhase(G: Matrix) {
+    //Проверка валидности второй матрицы
+//    val second = second(G)
+//    println(
+//        allCombinations(G.rowCount).to2DList().zip(second.to2DList())
+//            .filter { (_, item) -> item.sum() < 5 }
+//            .joinToString(separator = "\n")
+//    )
+    val error2 = G.generateError(2)
+    val verifyMatrix = LinearCode(G)
     println("сформированная ошибка х2")
     println(error2.toList())
     println("внедряем ошибку х2")
-    testRow = G.getRow(0) xorPlus error1
+    val testRow = G.getRow(0) xorPlus error2
     println(testRow.toList())
-    println((testRow multiply verifyMatrix.result).toList())
     val allXorCombinations = verifyMatrix.result.generateAllXorCombinations()
     println("таблица синдромов для ошибки х2")
-    println(allXorCombinations.print())
-    syndrome = testRow multiply verifyMatrix.result
-    println("места возможной ошибки")
+    allXorCombinations.print()
+    val syndrome = testRow multiply verifyMatrix.result
+    println("вычисляем синдром")
+    println(syndrome.toList())
+    println("места ошибки")
+    val errorPlace = allXorCombinations.findSameRow(syndrome)
+    println(errorPlace)
+    if (errorPlace.size == 1) {
+        testRow.correctError(errorPlace.first().first)
+        testRow.correctError(errorPlace.first().second)
+        println("исправили ошибку")
+        println(testRow.toList())
+    }
+}
+
+fun thirdPhase(G: Matrix) {
+    val verifyMatrix = LinearCode(G)
+    val error3 = G.generateError(3)
+    println("ошибка х3 ${error3.toList()}")
+    println("строка 0: ${G.getRow(0).toList()}")
+    val testRow = G.getRow(0) xorPlus error3
+    println("внедряем ошибку х3")
+    println(testRow.toList())
+    val syndrome = testRow multiply verifyMatrix.result
+    println("синдром ${syndrome.toList()}")
+    val allXorCombinations = verifyMatrix.result.generateAllXorCombinations()
+    println("места ошибки")
     println(allXorCombinations.findSameRow(syndrome))
+    println(verifyMatrix.result.findSameRow(syndrome))
 }
 
 object MatrixDictionary {
@@ -163,12 +208,22 @@ object MatrixDictionary {
         )
     )
 
-    val arrayG: Matrix = Matrix(
+    val arrayG1: Matrix = Matrix(
         arrayOf(
             intArrayOf(1, 0, 0, 0, 1, 1, 1),
             intArrayOf(0, 1, 0, 0, 0, 1, 1),
             intArrayOf(0, 0, 1, 0, 1, 1, 0),
             intArrayOf(0, 0, 0, 1, 1, 0, 1),
+        )
+    )
+
+    val arrayG2: Matrix = Matrix(
+        arrayOf(
+            intArrayOf(1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1),
+            intArrayOf(0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0),
+            intArrayOf(0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0),
+            intArrayOf(0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0),
+            intArrayOf(0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0),
         )
     )
 }
