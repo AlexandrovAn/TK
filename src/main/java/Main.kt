@@ -1,6 +1,4 @@
-import tasks.LinearCode
-import tasks.allCombinations
-import tasks.second
+import tasks.*
 import utils.*
 
 fun main() {
@@ -42,13 +40,71 @@ fun main() {
 //    println("Матрица с внедренной ошибкой:\n$resultOfPreviousTask")
 //    resultOfPreviousTask.verifyErroredMatrix(verificationMatrix)
 
-    println("*********ЛР 2 Часть 1********")
-    firstPhase(MatrixDictionary.arrayG1)
-    secondPhase(MatrixDictionary.arrayG1)
-    firstPhase(MatrixDictionary.arrayG2)
-    secondPhase(MatrixDictionary.arrayG2)
-    thirdPhase(MatrixDictionary.arrayG2)
+//    println("*********ЛР 2 Часть 1********")
+//    firstPhase(MatrixDictionary.arrayG1)
+//    secondPhase(MatrixDictionary.arrayG1)
+//    firstPhase(MatrixDictionary.arrayG2)
+//    secondPhase(MatrixDictionary.arrayG2)
+//    thirdPhase(MatrixDictionary.arrayG2)
 
+    println("*********ЛР 3********")
+    hamingTask(2)
+    hamingTask(3)
+    hamingTask(4)
+    extendedHamingTask(2)
+    extendedHamingTask(3)
+    extendedHamingTask(4)
+}
+
+fun extendedHamingTask(size: Int) {
+    println("Extended for size $size")
+    val H = generateExtendedHForHamingCode(size)
+    val G = generateExtendedGForHamingCode(size)
+    val x1ErrorG = G.generateError(1)
+    val x2ErrorG = G.generateError(2)
+    val x3ErrorG = G.generateError(3)
+    val x4ErrorG = G.generateError(4)
+    println(H)
+    println(G)
+    val syndromeX1 = x1ErrorG multiply H
+    val syndromeX2 = x2ErrorG multiply H
+    val syndromeX3 = x3ErrorG multiply H
+    val syndromeX4 = x4ErrorG multiply H
+    println("Syndrome for x1 : ${syndromeX1.toList()}")
+    println("Syndrome for x2 : ${syndromeX2.toList()}")
+    println("Syndrome for x3 : ${syndromeX3.toList()}")
+    println("Syndrome for x4 : ${syndromeX4.toList()}")
+    println("Find x1 error in H")
+    println(H.findSameRow(syndromeX1))
+    println("Find x2 error in H")
+    println(H.findSameRow(syndromeX2))
+    println("Find x3 error in H")
+    println(H.findSameRow(syndromeX3))
+    println("Find x4 error in H")
+    println(H.findSameRow(syndromeX4))
+}
+
+fun hamingTask(size: Int) {
+    println("Default for size $size")
+    val H = generateHForHamingCode(size)
+    val G = generateGForHamingCode(size)
+    val x1ErrorG = G.generateError(1)
+    val x2ErrorG = G.generateError(2)
+    val x3ErrorG = G.generateError(3)
+    println(H)
+    println(G)
+    val syndromeX1 = x1ErrorG multiply H
+    val syndromeX2 = x2ErrorG multiply H
+    val syndromeX3 = x3ErrorG multiply H
+    println("Syndrome for x1 : ${syndromeX1.toList()}")
+    println("Syndrome for x2 : ${syndromeX2.toList()}")
+    println("Syndrome for x3 : ${syndromeX3.toList()}")
+    println("Find x1 error in H")
+    println(H.findSameRow(syndromeX1))
+    println("Find x2 error in H")
+    println(H.findSameRow(syndromeX2))
+    println("Find x3 error in H")
+    println(H.findSameRow(syndromeX3))
 }
 
 fun firstPhase(G: Matrix) {
