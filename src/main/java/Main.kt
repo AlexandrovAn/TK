@@ -47,13 +47,38 @@ fun main() {
 //    secondPhase(MatrixDictionary.arrayG2)
 //    thirdPhase(MatrixDictionary.arrayG2)
 
-    println("*********ЛР 3********")
-    hamingTask(2)
-    hamingTask(3)
-    hamingTask(4)
-    extendedHamingTask(2)
-    extendedHamingTask(3)
-    extendedHamingTask(4)
+//    println("*********ЛР 3********")
+//    hamingTask(2)
+//    hamingTask(3)
+//    hamingTask(4)
+//    extendedHamingTask(2)
+//    extendedHamingTask(3)
+//    extendedHamingTask(4)
+
+    println("*********ЛР 4********")
+    golayTask()
+//    reedMillerTask()
+
+}
+
+fun reedMillerTask() {
+    println("*********REED-MILLER TASK********")
+    println("*********(1,3)********")
+    reedMillerDecoding(1, 3)
+    println("*********(1,4)********")
+    reedMillerDecoding(1, 4)
+}
+
+fun golayTask() {
+    println("*********GOLAY TASK********")
+    val G = generateGolayG()
+    val H = generateGolayH()
+    println("Golay G:\n${G}")
+    println("Golay H:\n${H}")
+    println("U for x1 = ${golayDecoding(1)}")
+    println("U for x2 = ${golayDecoding(2)}")
+    println("U for x3 = ${golayDecoding(3)}")
+    println("U for x4 = ${golayDecoding(4)}")
 }
 
 fun extendedHamingTask(size: Int) {
@@ -280,6 +305,13 @@ object MatrixDictionary {
             intArrayOf(0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0),
             intArrayOf(0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0),
             intArrayOf(0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0),
+        )
+    )
+
+    val testKroneker1: Matrix = Matrix(
+        arrayOf(
+            intArrayOf(1, 1),
+            intArrayOf(1, -1)
         )
     )
 }
