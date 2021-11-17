@@ -17,3 +17,5 @@ infix fun Matrix.equalAsMultiplicity(other: Matrix): Boolean {
     val secondSet = other.toListOfList()
     return firstSet.containsAll(secondSet) && secondSet.containsAll(firstSet)
 }
+
+infix fun Int.multiply(matrix: Matrix) = matrix.toListOfList().map { row -> row.map { it * this } }.toMatrix()
