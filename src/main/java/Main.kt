@@ -55,10 +55,52 @@ fun main() {
 //    extendedHamingTask(3)
 //    extendedHamingTask(4)
 
-    println("*********ЛР 4********")
-    golayTask()
+//    println("*********ЛР 4********")
+//    golayTask()
 //    reedMillerTask()
 
+    println("*********ЛР 6********")
+    testExample()
+    lab6Part1(7, 4, listOf(0, 2, 3))
+    lab6Part2(15, 9, listOf(0, 3, 4, 5, 6))
+}
+
+fun testExample() {
+    println("For (7,4):")
+    println(decodingFun(listOf(0, 1, 3), listOf(0, 1, 6).convertToVector(7), 7))
+    println("For (15,9):")
+    println(decodingFunForPack(listOf(0, 1, 2, 3, 6), listOf(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 13, 14).convertToVector(15), 15, 3))
+}
+
+fun lab6Part1(n: Int, k: Int, g: List<Int>) {
+    val G = generatePolynomG(g, n, k)
+    println("Matrix G:\n${G}")
+    val errorX1 = generateLab6Error(1, n, g, G)
+    val errorX2 = generateLab6Error(2, n, g, G)
+    val errorX3 = generateLab6Error(3, n, g, G)
+    println("Decoding for error x1= $errorX1:")
+    println(decodingFun(g, errorX1, n))
+    println("Decoding for error x2= $errorX2:")
+    println(decodingFun(g, errorX2, n))
+    println("Decoding for error x3= $errorX3:")
+    println(decodingFun(g, errorX3, n))
+}
+
+fun lab6Part2(n: Int, k: Int, g: List<Int>) {
+    val G = generatePolynomG(g, n, k)
+    println("Matrix G:\n${G}")
+    val errorX1 = generateLab6Error(1, n, g, G)
+    val errorX2 = listOf(1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0)
+    val errorX3 = listOf(1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1)
+    val errorX4 = generateLab6Error(4, n, g, G)
+    println("Decoding for error x1= $errorX1:")
+    println(decodingFunForPack(g, errorX1, n, 3))
+    println("Decoding for error x2= $errorX2:")
+    println(decodingFunForPack(g, errorX2, n, 3))
+    println("Decoding for error x3= $errorX3:")
+    println(decodingFunForPack(g, errorX3, n, 3))
+    println("Decoding for error x4= $errorX4:")
+    println(decodingFunForPack(g, errorX4, n, 3))
 }
 
 fun reedMillerTask() {
