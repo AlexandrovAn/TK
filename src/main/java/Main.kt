@@ -59,17 +59,33 @@ fun main() {
 //    golayTask()
 //    reedMillerTask()
 
-    println("*********ЛР 6********")
-    testExample()
-    lab6Part1(7, 4, listOf(0, 2, 3))
-    lab6Part2(15, 9, listOf(0, 3, 4, 5, 6))
+//    println("*********ЛР 6********")
+//    testExample()
+//    lab6Part1(7, 4, listOf(0, 2, 3))
+//    lab6Part2(15, 9, listOf(0, 3, 4, 5, 6))
+
+    println("*********ЛР 5********")
+    reedMillerDecodingLab5(2, 4)
+//    println(standartOrder(4).filter { F(listOf(0, 1), it) == 1 })
+//    println(generateGLab5(3, 4))
+//    println(generateV(listOf(1, 2), 3))
+//    println(generateI(4))
+//    println(standartOrder(4).toMatrix())
+
 }
 
 fun testExample() {
     println("For (7,4):")
     println(decodingFun(listOf(0, 1, 3), listOf(0, 1, 6).convertToVector(7), 7))
     println("For (15,9):")
-    println(decodingFunForPack(listOf(0, 1, 2, 3, 6), listOf(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 13, 14).convertToVector(15), 15, 3))
+    println(
+        decodingFunForPack(
+            listOf(0, 1, 2, 3, 6),
+            listOf(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 13, 14).convertToVector(15),
+            15,
+            3
+        )
+    )
 }
 
 fun lab6Part1(n: Int, k: Int, g: List<Int>) {
